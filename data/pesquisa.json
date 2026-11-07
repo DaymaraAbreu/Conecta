@@ -1,0 +1,193 @@
+{
+  "surveyId": "conecta-pesquisa-campo-2026",
+  "period": "Pesquisa de campo — período de aplicação não informado",
+  "dataType": "field",
+  "source": "DADOS DEMONSTRATIVOS (JSON local, não fonte autorizada de produção): pesquisa de campo enviada pelo responsável pelo projeto, consolidada a partir dos gráficos do Google Forms. Amostra demonstrativa: 10 respondentes. Dados agregados sem identificação individual. Questões de múltipla seleção podem ultrapassar 100% quando somadas.",
+  "updatedAt": null,
+  "participantCount": 10,
+  "responseCount": 10,
+  "participants": [
+    {
+      "category": "Baixa visão diagnosticada",
+      "count": 5
+    },
+    {
+      "category": "Dificuldade visual acentuada relacionada à idade",
+      "count": 2
+    },
+    {
+      "category": "Dificuldade temporária ou outra condição",
+      "count": 1
+    },
+    {
+      "category": "Preferiu não especificar condição visual",
+      "count": 2
+    }
+  ],
+  "barriers": [
+    {
+      "category": "Letras muito pequenas ou difíceis de enxergar",
+      "count": 7
+    },
+    {
+      "category": "Botões e ícones muito pequenos ou difíceis de clicar",
+      "count": 7
+    },
+    {
+      "category": "Poluição visual",
+      "count": 4
+    },
+    {
+      "category": "Falta de contraste",
+      "count": 2
+    },
+    {
+      "category": "Dificuldade para ler textos longos",
+      "count": 2
+    }
+  ],
+  "additionalCharts": [
+    {
+      "id": "device-assistive",
+      "title": "Aceitação de dispositivo físico assistivo",
+      "description": "Percepção sobre um botão ou teclado externo com vibração e confirmação de ações (10 respondentes).",
+      "items": [
+        {
+          "category": "Sim, facilitaria muito",
+          "count": 7
+        },
+        {
+          "category": "Ajudaria em algumas tarefas",
+          "count": 2
+        },
+        {
+          "category": "Indiferente",
+          "count": 0
+        },
+        {
+          "category": "Não ajudaria",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "preferred-support",
+      "title": "Formatos de resposta e ajuda preferidos",
+      "description": "Questão de múltipla seleção. Percentuais calculados sobre 10 respondentes; a soma pode ultrapassar 100%.",
+      "items": [
+        {
+          "category": "Áudio claro com voz natural e pausada",
+          "count": 3
+        },
+        {
+          "category": "Adaptação visual automática",
+          "count": 3
+        },
+        {
+          "category": "Vibração para confirmar ações e alertar sobre erros",
+          "count": 2
+        },
+        {
+          "category": "Acionamento por comando de voz",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "native-accessibility",
+      "title": "Uso dos recursos nativos de acessibilidade",
+      "description": "Experiência dos participantes com lupa, zoom, leitores de tela e alto contraste (10 respondentes).",
+      "items": [
+        {
+          "category": "Sim, uso diariamente",
+          "count": 2
+        },
+        {
+          "category": "Sim, mas achei confuso ou difícil de configurar",
+          "count": 4
+        },
+        {
+          "category": "Não conheço ou nunca consegui usar",
+          "count": 3
+        },
+        {
+          "category": "Tentei usar leitor de tela, mas a voz rápida atrapalha",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "visual-autonomy",
+      "title": "Impacto das barreiras visuais na autonomia",
+      "description": "Escala de 1 a 5, em que 1 significa nenhuma dificuldade e 5 dificuldade totalmente impeditiva (10 respondentes).",
+      "items": [
+        {
+          "category": "1 — Não atrapalham em nada",
+          "count": 1
+        },
+        {
+          "category": "2 — Atrapalham pouco",
+          "count": 4
+        },
+        {
+          "category": "3 — Dificuldade moderada",
+          "count": 3
+        },
+        {
+          "category": "4 — Dificuldade alta",
+          "count": 1
+        },
+        {
+          "category": "5 — Totalmente impeditivo",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "age",
+      "title": "Faixa etária dos participantes",
+      "description": "Distribuição por faixa etária (10 respondentes).",
+      "items": [
+        {
+          "category": "18 a 24 anos",
+          "count": 7
+        },
+        {
+          "category": "25 a 34 anos",
+          "count": 0
+        },
+        {
+          "category": "35 a 44 anos",
+          "count": 0
+        },
+        {
+          "category": "45 a 55 anos",
+          "count": 0
+        },
+        {
+          "category": "Mais de 55 anos",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "gender",
+      "title": "Gênero informado",
+      "description": "Distribuição das respostas sobre gênero (10 respondentes).",
+      "items": [
+        {
+          "category": "Feminino",
+          "count": 4
+        },
+        {
+          "category": "Masculino",
+          "count": 5
+        },
+        {
+          "category": "Preferiu não informar",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

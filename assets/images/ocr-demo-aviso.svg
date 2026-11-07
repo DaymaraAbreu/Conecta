@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
+  <rect width="1000" height="640" rx="34" fill="#eef4ef"/>
+  <rect x="44" y="38" width="912" height="564" rx="28" fill="#ffffff" stroke="#d8e4dc" stroke-width="3"/>
+  <path d="M72 66h856a18 18 0 0 1 18 18v116H54V84a18 18 0 0 1 18-18z" fill="#17624d"/>
+  <circle cx="120" cy="128" r="33" fill="#ffffff" opacity=".17"/>
+  <path d="M120 105v46M97 128h46" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  <text x="174" y="120" fill="#ffffff" font-family="DejaVu Sans, sans-serif" font-size="31" font-weight="700">UNIDADE DE SAÚDE</text>
+  <text x="174" y="153" fill="#dcebe2" font-family="DejaVu Sans, sans-serif" font-size="18">AVISO DE ATENDIMENTO · IMAGEM DE DEMONSTRAÇÃO</text>
+
+  <text x="94" y="255" fill="#17624d" font-family="DejaVu Sans, sans-serif" font-size="21" font-weight="700" letter-spacing="1.5">HORÁRIO DE ATENDIMENTO</text>
+  <text x="94" y="310" fill="#1f3028" font-family="DejaVu Sans, sans-serif" font-size="38" font-weight="700">Segunda a sexta</text>
+  <text x="94" y="360" fill="#344b3e" font-family="DejaVu Sans, sans-serif" font-size="29">Das 8h às 17h</text>
+  <line x1="94" y1="397" x2="906" y2="397" stroke="#e2ebe5" stroke-width="3"/>
+
+  <rect x="88" y="427" width="824" height="112" rx="18" fill="#e8f3ec"/>
+  <circle cx="136" cy="483" r="24" fill="#17624d"/>
+  <path d="M136 469v28M122 483h28" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+  <text x="181" y="474" fill="#17624d" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="700">ENTRADA ACESSÍVEL</text>
+  <text x="181" y="508" fill="#344b3e" font-family="DejaVu Sans, sans-serif" font-size="20">Acesso pela Rua Central</text>
+  <text x="94" y="570" fill="#6e8175" font-family="DejaVu Sans, sans-serif" font-size="15">Amostra de contingência para apresentações sem o módulo OCR nativo.</text>
+</svg>

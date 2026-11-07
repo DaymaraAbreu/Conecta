@@ -1,20 +1,30 @@
 import { decode, encode } from 'base-64';
+import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { Platform } from 'react-native';
-import type { Device, Subscription } from 'react-native-ble-plx';
+import type { BleManager as BleManagerType, Device, Subscription } from 'react-native-ble-plx';
 import { parseEsp32Event, type Esp32Event } from './esp32Events';
 
-const getBleManager = () => {
-  if (Platform.OS === 'web') return null;
+// O Expo Go não inclui o módulo nativo do react-native-ble-plx. Importá-lo lá
+// quebra o app inteiro (createClient of null), então nem tentamos carregar.
+const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
+const isBleSupportedRuntime = Platform.OS !== 'web' && !isExpoGo;
+
+const BLE_UNAVAILABLE_MESSAGE = Platform.OS === 'web'
+  ? 'BLE exige um build nativo e um dispositivo compatível.'
+  : 'BLE não funciona no Expo Go. Use um development build (expo-dev-client) para conectar o ESP32.';
+
+const createBleManager = (): BleManagerType | null => {
+  if (!isBleSupportedRuntime) return null;
 
   try {
+    // require dentro da função: o módulo nativo só é carregado quando realmente necessário.
     const bleModule = require('react-native-ble-plx') as typeof import('react-native-ble-plx');
-    return bleModule.BleManager ?? null;
-  } catch {
+    return new bleModule.BleManager();
+  } catch (error) {
+    console.warn('[BLE] Módulo nativo indisponível neste ambiente:', error);
     return null;
   }
 };
-
-const BleManager = getBleManager();
 
 export { parseEsp32Event } from './esp32Events';
 export type { Esp32Event } from './esp32Events';
@@ -46,16 +56,17 @@ type EventListener = (event: Esp32Event) => void;
 type ReadLastMessageHandler = (event: Esp32Event) => void;
 
 const initialSnapshot: Esp32ConnectionSnapshot = {
-  status: Platform.OS === 'web' ? 'unavailable' : 'idle',
+  status: isBleSupportedRuntime ? 'idle' : 'unavailable',
   deviceName: null,
   deviceId: null,
-  message: Platform.OS === 'web' ? 'BLE exige um build nativo e um dispositivo compatível.' : 'Nenhum ESP32 conectado.',
+  message: isBleSupportedRuntime ? 'Nenhum ESP32 conectado.' : BLE_UNAVAILABLE_MESSAGE,
   retryAttempt: 0,
 };
 
 class Esp32BleService {
-  // react-native-ble-plx usa módulos nativos e não pode ser instanciado no SSR/Web.
-  private readonly manager = BleManager ? new BleManager() : null;
+  // Criado sob demanda (lazy): evita tocar no módulo nativo no Expo Go, Web ou SSR.
+  private bleManager: BleManagerType | null = null;
+  private bleManagerChecked = false;
   private snapshot = initialSnapshot;
   private device: Device | null = null;
   private scanTimer: ReturnType<typeof setTimeout> | null = null;
@@ -68,6 +79,14 @@ class Esp32BleService {
   private readLastMessageHandler: ReadLastMessageHandler | null = null;
   private pendingReadLastMessage: Esp32Event | null = null;
   private selectedConversationId = '';
+
+  private get manager(): BleManagerType | null {
+    if (!this.bleManagerChecked) {
+      this.bleManagerChecked = true;
+      this.bleManager = createBleManager();
+    }
+    return this.bleManager;
+  }
 
   getSnapshot() {
     return this.snapshot;
@@ -119,12 +138,11 @@ class Esp32BleService {
   }
 
   async scanAndConnect(timeoutMs = 10_000) {
-    if (Platform.OS === 'web') {
-      this.update({ status: 'unavailable', message: 'A conexão BLE só funciona em um development build Android/iOS.' });
+    const manager = this.manager;
+    if (!manager) {
+      this.update({ status: 'unavailable', message: BLE_UNAVAILABLE_MESSAGE });
       return false;
     }
-    const manager = this.manager;
-    if (!manager) return false;
     if (this.snapshot.status === 'scanning' || this.snapshot.status === 'connecting' || this.snapshot.status === 'connected') return false;
     this.clearTimers();
     this.manualDisconnect = false;
@@ -243,7 +261,7 @@ class Esp32BleService {
     this.disconnectSubscription?.remove();
     this.eventSubscription = null;
     this.disconnectSubscription = null;
-    if (this.device) await this.manager?.cancelDeviceConnection(this.device.id).catch(() => undefined);
+    if (this.device) await this.bleManager?.cancelDeviceConnection(this.device.id).catch(() => undefined);
     this.device = null;
     this.update({ status: 'disconnected', deviceName: null, deviceId: null, message: 'ESP32 desconectado.', retryAttempt: 0 });
   }
@@ -257,7 +275,9 @@ class Esp32BleService {
 
   async destroy() {
     await this.disconnect();
-    this.manager?.destroy();
+    this.bleManager?.destroy();
+    this.bleManager = null;
+    this.bleManagerChecked = false;
   }
 }
 

@@ -120,7 +120,14 @@ const config: ExpoConfig = {
     "@clerk/expo",
     "expo-secure-store",
     "expo-web-browser",
-    "react-native-ble-plx",
+    [
+      "react-native-ble-plx",
+      {
+        isBackgroundEnabled: false,
+        modes: ["central"],
+        bluetoothAlwaysPermission: "Permita que o Conecta conecte ao dispositivo assistivo ESP32 via Bluetooth.",
+      },
+    ],
     [
       "expo-image-picker",
       { photosPermission: "Permita que o Conecta abra a imagem escolhida para ler texto no próprio aparelho." },

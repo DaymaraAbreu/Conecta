@@ -41,18 +41,25 @@ export async function syncClerkUserToSupabase(
   } | null,
 ) {
   if (!user || !hasSupabaseConfig()) return false;
+  
 
   const email = user.primaryEmailAddress?.emailAddress || '';
   const name = user.fullName || user.firstName || email.split('@')[0] || 'Usuário';
-  const { error } = await supabase.from('profiles').upsert(
-    {
-      id: user.id,
-      name,
-      email,
-      username: user.username || null,
-    },
-    { onConflict: 'id' },
-  );
+  const username = user.username || null;
+
+  const { error: insertError } = await supabase
+    .from('profiles')
+    .upsert(
+      { id: user.id, name, email, username },
+      { onConflict: 'id', ignoreDuplicates: true },
+    );
+
+  const { error: updateError } = await supabase
+    .from('profiles')
+    .update({ name, email, username })
+    .eq('id', user.id);
+
+  const error = insertError ?? updateError;
   if (error) {
     console.warn('Não foi possível sincronizar o perfil com o Supabase:', error.message);
     return false;

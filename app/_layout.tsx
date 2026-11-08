@@ -154,7 +154,7 @@ function ClerkRoutes() {
   }, [configuredForSupabase, signedIn, user]);
 
   useEffect(() => {
-    setClerkTokenGetter(signedIn && !demoMode ? () => getToken({ template: 'supabase' }) : undefined);
+    setClerkTokenGetter(signedIn && !demoMode ? () => getToken() : undefined);
     return () => setClerkTokenGetter(undefined);
   }, [demoMode, getToken, signedIn]);
 
